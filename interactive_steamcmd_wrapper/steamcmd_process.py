@@ -4,8 +4,8 @@ from subprocess import Popen, PIPE
 from typing import Optional
 import platform
 
-from interactive_steamcmd_wrapper.config import on_ready_msg, generic_error_msg, on_login_msg, \
-    on_app_update_success_msg, on_mod_update_success_msg, on_timeout_msg
+from interactive_steamcmd_wrapper.config import on_ready_msg, on_login_msg, \
+    on_app_update_success_msg, on_mod_update_success_msg, on_timeout_msg, generic_error_msgs
 from interactive_steamcmd_wrapper.exceptions import ISteamCMDProcessError, ISteamCMDTimeout
 
 
@@ -32,8 +32,7 @@ class ISteamCMDProcess:
             output = self._read_output()
             if on_ready_msg in output:
                 return
-            if generic_error_msg in output.lower():
-                raise ISteamCMDProcessError("SteamCMD returned generic error code on startup")
+            self._check_output_for_generic_error("SteamCMD returned generic error code on startup")
 
     def login(
         self,
@@ -52,8 +51,7 @@ class ISteamCMDProcess:
             output = self._read_output()
             if on_login_msg in output:
                 return
-            if generic_error_msg in output.lower():
-                raise ISteamCMDProcessError("SteamCMD returned generic error code on startup")
+            self._check_output_for_generic_error("SteamCMD returned generic error code on startup")
 
     def _set_install_dir(self, install_dir: str) -> None:
         if os.path.join(install_dir, "SteamCMD.exe") in self.exe:
@@ -70,8 +68,7 @@ class ISteamCMDProcess:
             output = self._read_output()
             if on_app_update_success_msg in output:
                 return
-            if generic_error_msg.lower() in output.lower():
-                raise ISteamCMDProcessError("SteamCMD returned generic error code")
+            self._check_output_for_generic_error("SteamCMD returned generic error code")
 
     def update_workshop_mod(self, app_id: int, mod_id: int, mods_dir: str, validate: bool = True) -> None:
         self._set_install_dir(mods_dir)
@@ -91,8 +88,13 @@ class ISteamCMDProcess:
                 return
             elif on_timeout_msg in output:
                 raise ISteamCMDTimeout
-            elif generic_error_msg in output.lower():
-                raise ISteamCMDProcessError("SteamCMD returned generic error code")
+            self._check_output_for_generic_error("SteamCMD returned generic error code")
+
+    @staticmethod
+    def _check_output_for_generic_error(output: str, msg_on_error: str = "Unknown Error") -> None:
+        for generic_error_msg in generic_error_msgs:
+            if generic_error_msg.lower() in output.lower():
+                raise ISteamCMDProcessError(msg_on_error)
 
     def _input(self, payload: str, hide_logs: bool = False) -> None:
         if not hide_logs:

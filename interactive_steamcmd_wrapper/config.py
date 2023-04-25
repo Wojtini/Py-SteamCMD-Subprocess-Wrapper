@@ -5,4 +5,4 @@ on_mod_update_success_msg = "Success. Downloaded item"
 on_input_msg = "Steam>"
 on_login_msg = "Waiting for user info...OK"
 
-generic_error_msg = "ERROR"
+generic_error_msgs = ["ERROR", "FAILED"]
