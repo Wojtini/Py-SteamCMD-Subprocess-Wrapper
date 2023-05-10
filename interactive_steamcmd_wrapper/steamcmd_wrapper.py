@@ -3,8 +3,8 @@ import os
 import platform
 import subprocess
 import urllib.request
-from interactive_steamcmd_wrapper.exceptions import ISteamCMDProcessError, SteamCMDAlreadyInstalled, \
-    SteamCMDInstallException
+from interactive_steamcmd_wrapper.exceptions import ISteamCMDProcessError, ISteamCMDAlreadyInstalled, \
+    ISteamCMDInstallException
 from interactive_steamcmd_wrapper.steamcmd_process import ISteamCMDProcess
 
 package_links = {
@@ -41,7 +41,7 @@ class InteractiveSteamCMD:
         self._prepare_installation()
         if os.path.isfile(self.exe):
             self.logger.info("SteamCMD already installed. Skipping")
-            raise SteamCMDAlreadyInstalled("SteamCMD already installed")
+            raise ISteamCMDAlreadyInstalled("SteamCMD already installed")
         self._download()
         self._extract_steamcmd()
         self._first_launch()
@@ -94,4 +94,4 @@ class InteractiveSteamCMD:
         try:
             subprocess.check_call((self.exe, "+quit"))
         except subprocess.CalledProcessError as e:
-            raise SteamCMDInstallException(f"First run returned {e.returncode}")
+            raise ISteamCMDInstallException(f"First run returned {e.returncode}")

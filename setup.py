@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="interactive-py-steamcmd-wrapper",
-    version="0.1.1",
+    version="0.1.2",
     author="Wojciech Maziarz",
     author_email="whitem200@gmail.com",
     description="Interactive python wrapper for SteamCMD",

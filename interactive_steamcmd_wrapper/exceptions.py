@@ -1,14 +1,23 @@
+from dataclasses import dataclass
+
+
 class ISteamCMDProcessError(Exception):
     ...
 
 
-class SteamCMDAlreadyInstalled(Exception):
+class ISteamCMDAlreadyInstalled(ISteamCMDProcessError):
     ...
 
 
-class ISteamCMDTimeout(Exception):
+class ISteamCMDDownloadTimeout(ISteamCMDProcessError):
     ...
 
 
-class SteamCMDInstallException(Exception):
+class ISteamCMDInstallException(ISteamCMDProcessError):
     ...
+
+
+@dataclass
+class CustomError:
+    error_msg: str
+    exception: ISteamCMDProcessError
