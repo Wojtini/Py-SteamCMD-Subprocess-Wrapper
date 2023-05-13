@@ -41,10 +41,11 @@ class InteractiveSteamCMD:
         self._prepare_installation()
         if os.path.isfile(self.exe):
             self.logger.info("SteamCMD already installed. Skipping")
+            self._empty_launch()
             raise ISteamCMDAlreadyInstalled("SteamCMD already installed")
         self._download()
         self._extract_steamcmd()
-        self._first_launch()
+        self._empty_launch()
 
     def _prepare_installation(self):
         if self.platform not in package_links:
@@ -89,7 +90,7 @@ class InteractiveSteamCMD:
 
         os.remove(self.zip)
 
-    def _first_launch(self):
+    def _empty_launch(self):
         self.logger.info("Launching steam to update")
         try:
             subprocess.check_call((self.exe, "+quit"))
