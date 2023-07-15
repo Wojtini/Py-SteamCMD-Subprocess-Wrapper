@@ -1,15 +1,14 @@
 import logging
 import os
 from subprocess import Popen, PIPE
-from typing import Optional, List
+from typing import Optional
 
 from interactive_steamcmd_wrapper.config import (
     ON_READY_MSG,
     ON_LOGIN_MSG,
     ON_APP_UPDATE_SUCCESS_MSG,
     ON_MOD_UPDATE_SUCCESS_MSG,
-    TIMEOUT_ERROR,
-    GENERIC_ERRORS,
+    GENERIC_ERRORS, IGNORED_ERRORS,
 )
 from interactive_steamcmd_wrapper.exceptions import ISteamCMDProcessError, ISteamCMDDownloadTimeout, CustomError
 
@@ -53,34 +52,27 @@ class ISteamCMDProcess:
         self._set_install_dir(mods_dir)
         self._input(f"workshop_download_item {app_id} {mod_id} {'validate' if validate else ''}")
         try:
-            self._wait_for_steam_cmd_output(ON_MOD_UPDATE_SUCCESS_MSG, [TIMEOUT_ERROR])
+            self._wait_for_steam_cmd_output(ON_MOD_UPDATE_SUCCESS_MSG)
             return
         except ISteamCMDDownloadTimeout:
             pass
         self.logger.info("Retrying download after timeout...")
         self.update_workshop_mod(app_id, mod_id, mods_dir, validate)
 
-    def _wait_for_steam_cmd_output(self, success_msg: str, custom_errors: Optional[List[CustomError]] = None) -> None:
+    def _wait_for_steam_cmd_output(self, success_msg: str) -> None:
         while True:
             output = self._read_output()
             if success_msg in output:
                 return
-            self._check_output_for_custom_error(output, custom_errors)
-            self._check_output_for_generic_error(output)
+            self._check_output_for_errors(output)
 
     @staticmethod
-    def _check_output_for_custom_error(output: str, custom_errors: Optional[List[CustomError]] = None) -> None:
-        if not custom_errors:
-            custom_errors = []
-        for custom_error in custom_errors:
-            if custom_error.error_msg in output:
-                raise custom_error.exception
-
-    @staticmethod
-    def _check_output_for_generic_error(output: str) -> None:
+    def _check_output_for_errors(output: str) -> None:
         for generic_error in GENERIC_ERRORS:
             if generic_error.error_msg.lower() in output.lower():
-                raise ISteamCMDProcessError("Steam CMD errored")
+                if any(output.lower() in ignored_error.lower() for ignored_error in IGNORED_ERRORS):
+                    return
+                raise ISteamCMDProcessError("Steam CMD errored", output)
 
     def _input(self, payload: str, hide_logs: bool = False) -> None:
         if not hide_logs:

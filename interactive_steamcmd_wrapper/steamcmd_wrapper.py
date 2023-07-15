@@ -49,7 +49,7 @@ class InteractiveSteamCMD:
 
     def _prepare_installation(self):
         if self.platform not in package_links:
-            raise ISteamCMDProcessError(f"Non supported operating system. Expected Windows or Linux, got {self.platform}")
+            raise ISteamCMDProcessError(f"Non supported operating system. Expected Linux, got {self.platform}")
         self.steamcmd_url = package_links[self.platform]["url"]
         self.zip = "steamcmd" + package_links[self.platform]["d_extension"]
 
