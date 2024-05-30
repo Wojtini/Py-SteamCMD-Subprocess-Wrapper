@@ -1,0 +1,75 @@
+[project]
+name = "Interactive_SteamCMD_Wrapper"
+dynamic = ["version"]
+authors = [
+  {name = "Wojciech Maziarz", email = "wmaziarzw@gmail.com"},
+]
+description = "SteamCMD Python wrapper to persist steam's login sessions"
+readme = "README.md"
+keywords = ["Steam", "Steam Server", "SteamCMD", "Linux"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+
+  "Programming Language :: Python :: 3.11",
+]
+requires-python = "==3.11"
+dependencies = [
+  "requests>2.0.0",
+]
+
+[project.urls]
+Repository = "https://github.com/Wojtini/Interactive-SteamCMD-Wrapper"
+Issues = "https://github.com/Wojtini/Interactive-SteamCMD-Wrapper/issues"
+
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "pip-tools",
+    "ruff",
+    "pytest",
+    "pyfakefs",
+    "requests_mock",
+]
+
+[tool.ruff]
+required-version = ">=0.4.0"
+line-length = 100
+indent-width = 4
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ANN101", # Annotating 'self' is not necessary
+    "ANN102", # Annotating 'cls' is not necessary
+    "D100", # Public module docstring
+    "D101", # Public class docstring
+    "D102", # Public method docstring
+    "D103", # Public function docstring
+    "D104", # Public package docstring
+    "D105", # Public magic method
+    "D107", # __init__ docstring
+    "D203",
+    "D213",
+    "EM101", # allow exception string literal
+    "FA102", # typing annotations from class instead of type
+    "FBT001",
+    "FBT002",
+    "G004", # allow f-string in logging
+    "S101", # allow asserts use
+    "SIM108", # allow if else instead of ternary
+    "TRY003", # allow specifying long messages inside the exception class
+]
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+warn_unreachable = true
