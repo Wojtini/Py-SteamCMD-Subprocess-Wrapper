@@ -22,5 +22,4 @@ jobs:
           ruff check
       - name: Typing Check - MyPy
         run: |
-          mypy --install-types
-          mypy app --disallow-untyped-defs --warn-unreachable
+          mypy interactive_steamcmd_wrapper

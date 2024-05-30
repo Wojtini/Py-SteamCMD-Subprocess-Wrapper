@@ -30,6 +30,7 @@ dev = [
     "pytest",
     "pyfakefs",
     "requests_mock",
+    "types-requests",
 ]
 
 [tool.ruff]

@@ -44,10 +44,14 @@ requests-mock==1.12.1
     # via Interactive_SteamCMD_Wrapper (pyproject.toml)
 ruff==0.4.6
     # via Interactive_SteamCMD_Wrapper (pyproject.toml)
+types-requests==2.32.0.20240523
+    # via Interactive_SteamCMD_Wrapper (pyproject.toml)
 typing-extensions==4.12.0
     # via mypy
 urllib3==2.2.1
-    # via requests
+    # via
+    #   requests
+    #   types-requests
 wheel==0.43.0
     # via pip-tools
 
