@@ -7,22 +7,27 @@ jobs:
   linters-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          architecture: "x64"
-      - name: Install dependencies
+      - name: Run tox
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements_dev.txt
-      - name: Style Check - Ruff
+          pip install tox
+          tox run -e 3.12 -- check_lint
+  run-uts-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run tox
         run: |
-          ruff check
-      - name: Typing Check - MyPy
-        run: |
-          mypy interactive_steamcmd_wrapper
-      - name: Unittests
-        run: |
-          pytest interactive_steamcmd_wrapper/tests/uts
+          pip install tox
+          tox -e ${{ matrix.python-version }}
