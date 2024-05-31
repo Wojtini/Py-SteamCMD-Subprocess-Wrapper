@@ -36,6 +36,7 @@ class TestSteamSubprocess:
         self.subprocess.start()
         process = self.subprocess._process  # noqa: SLF001
         del self.subprocess
+        assert process
         assert self.check_if_process_exited(process, 10)
 
     @staticmethod

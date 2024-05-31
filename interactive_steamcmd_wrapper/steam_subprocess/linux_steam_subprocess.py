@@ -32,7 +32,7 @@ class LinuxSteamCMDSubprocess(PSubprocessProtocol):
     def stop(self) -> None:
         self.logger.debug("Stopping SteamCMD subprocess")
         self.input("quit")
-        while self._process.poll() is None:
+        while self._process and self._process.poll() is None:
             continue
 
     def input(self, payload: str) -> None:
