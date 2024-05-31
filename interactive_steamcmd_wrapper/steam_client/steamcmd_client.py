@@ -28,8 +28,10 @@ class SteamCMDClient(PSteamCMDClient):
         self.current_logged_user: str | None = None
         self.subprocess = subprocess
         self.file_system = file_system
+        self.logger.info("Starting up subprocess")
         self.subprocess.start()
         self._wait_for_steam_cmd_output(ON_READY_MSG)
+        self.logger.info("Started up subprocess")
 
     def login(
         self,
@@ -44,6 +46,7 @@ class SteamCMDClient(PSteamCMDClient):
             payload += f" {token}"
         self.subprocess.input(payload)
         self._wait_for_steam_cmd_output(ON_LOGIN_MSG)
+        self.logger.info(f"Logged in as {username}")
 
     def login_as_anonymous(self) -> None:
         self.login("anonymous", "anonymous")
@@ -55,15 +58,19 @@ class SteamCMDClient(PSteamCMDClient):
         ):
             raise SteamCMDClientInstallDirError
         self.subprocess.input(f"force_install_dir {install_dir}")
+        self.logger.info(f"Set install dir to {install_dir}")
 
     def update_app(self, app_id: str, validate: bool = True) -> None:
+        self.logger.info(f"Updating app {app_id}")
         payload = f"app_update {app_id}"
         if validate:
             payload += " validate"
         self.subprocess.input(payload)
         self._wait_for_steam_cmd_output(ON_APP_UPDATE_SUCCESS_MSG)
+        self.logger.info(f"Updated app {app_id}")
 
     def update_workshop_mod(self, app_id: str, mod_id: str, validate: bool = True) -> None:
+        self.logger.info(f"Updating workshop mod {app_id}:{mod_id}")
         payload = f"workshop_download_item {app_id} {mod_id}"
         if validate:
             payload += " validate"
@@ -74,6 +81,7 @@ class SteamCMDClient(PSteamCMDClient):
             self.logger.info("Retrying download after timeout...")
             self.update_workshop_mod(app_id, mod_id, validate)
         else:
+            self.logger.info(f"Updated workshop mod {app_id}:{mod_id}")
             return
 
     def _wait_for_steam_cmd_output(self, success_msg: str) -> None:
@@ -86,6 +94,6 @@ class SteamCMDClient(PSteamCMDClient):
     def _check_output_for_errors(self, output: str) -> None:
         for generic_error in GENERIC_ERRORS:
             if generic_error.error_msg.lower() in output.lower():
-                if any(output.lower() in ignored_error.lower() for ignored_error in IGNORED_ERRORS):
+                if any(ignored_error.lower() in output.lower() for ignored_error in IGNORED_ERRORS):
                     return
                 raise generic_error.exception(output)
