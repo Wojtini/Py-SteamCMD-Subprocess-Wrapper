@@ -6,23 +6,16 @@ on:
 jobs:
   linters-check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-          architecture: "x64"
-      - name: Install dependencies
+          python-version: ${{ matrix.python-version }}
+      - name: Run tox
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements_dev.txt
-      - name: Style Check - Ruff
-        run: |
-          ruff check
-      - name: Typing Check - MyPy
-        run: |
-          mypy interactive_steamcmd_wrapper
-      - name: Unittests
-        run: |
-          pytest interactive_steamcmd_wrapper/tests/uts
+          pip install tox
+          tox run -e ${{ matrix.python-version }}
