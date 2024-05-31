@@ -19,6 +19,8 @@ ON_APP_UPDATE_SUCCESS_MSG = "Success! App"
 ON_MOD_UPDATE_SUCCESS_MSG = "Success. Downloaded item"
 ON_LOGIN_MSG = "Waiting for user info...OK"
 
+TIMEOUT_ERROR_MSG = "ERROR! Timeout downloading item"
+
 
 class SteamCMDProcessError(Exception):
     def __init__(self, output: str) -> None:
@@ -37,7 +39,7 @@ class CustomError:
 
 
 GENERIC_ERRORS: list[CustomError] = [
-    CustomError("ERROR! Timeout downloading item", SteamCMDDownloadTimeoutError),
+    CustomError(TIMEOUT_ERROR_MSG, SteamCMDDownloadTimeoutError),
     CustomError("ERROR", SteamCMDProcessError),
     CustomError("FAILED", SteamCMDProcessError),
 ]

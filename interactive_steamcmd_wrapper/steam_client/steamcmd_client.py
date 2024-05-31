@@ -39,7 +39,9 @@ class SteamCMDClient(PSteamCMDClient):
     ) -> None:
         self.logger.info("Logging in as username:")
         self.current_logged_user = username
-        payload = f"login {username} {password} {token if token else ''}"
+        payload = f"login {username} {password}"
+        if token:
+            payload += f" {token}"
         self.subprocess.input(payload)
         self._wait_for_steam_cmd_output(ON_LOGIN_MSG)
 
@@ -55,13 +57,17 @@ class SteamCMDClient(PSteamCMDClient):
         self.subprocess.input(f"force_install_dir {install_dir}")
 
     def update_app(self, app_id: str, validate: bool = True) -> None:
-        self.subprocess.input(f"app_update {app_id} {'validate' if validate else ''}")
+        payload = f"app_update {app_id}"
+        if validate:
+            payload += " validate"
+        self.subprocess.input(payload)
         self._wait_for_steam_cmd_output(ON_APP_UPDATE_SUCCESS_MSG)
 
     def update_workshop_mod(self, app_id: str, mod_id: str, validate: bool = True) -> None:
-        self.subprocess.input(
-            f"workshop_download_item {app_id} {mod_id} {'validate' if validate else ''}",
-        )
+        payload = f"workshop_download_item {app_id} {mod_id}"
+        if validate:
+            payload += " validate"
+        self.subprocess.input(payload)
         try:
             self._wait_for_steam_cmd_output(ON_MOD_UPDATE_SUCCESS_MSG)
         except SteamCMDDownloadTimeoutError:

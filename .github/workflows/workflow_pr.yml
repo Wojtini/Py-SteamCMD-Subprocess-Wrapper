@@ -23,3 +23,6 @@ jobs:
       - name: Typing Check - MyPy
         run: |
           mypy interactive_steamcmd_wrapper
+      - name: Unittests
+        run: |
+          pytest interactive_steamcmd_wrapper/tests/uts

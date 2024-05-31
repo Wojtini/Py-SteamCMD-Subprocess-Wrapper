@@ -9,13 +9,13 @@ class SteamCMDSubprocessError(Exception):
 
 
 class PSubprocessProtocol(Protocol):
-    @abstractmethod
     @property
+    @abstractmethod
     def executable_path(self) -> Path:
         raise NotImplementedError
 
-    @abstractmethod
     @property
+    @abstractmethod
     def executable_file(self) -> str:
         raise NotImplementedError
 
