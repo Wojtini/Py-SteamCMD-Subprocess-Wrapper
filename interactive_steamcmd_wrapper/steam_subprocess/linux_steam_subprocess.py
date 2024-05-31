@@ -9,7 +9,6 @@ from interactive_steamcmd_wrapper.steam_subprocess.protocol_subprocess import (
 
 
 class LinuxSteamCMDSubprocess(PSubprocessProtocol):
-
     def __init__(self, executable_path: Path) -> None:
         self._executable_path = executable_path
         self._executable_file = str(self.executable_path).split("/")[-1]
@@ -33,7 +32,8 @@ class LinuxSteamCMDSubprocess(PSubprocessProtocol):
     def stop(self) -> None:
         self.logger.debug("Stopping SteamCMD subprocess")
         self.input("quit")
-        self._process = None
+        while self._process.poll() is None:
+            continue
 
     def input(self, payload: str) -> None:
         if self._process is None:
@@ -52,3 +52,7 @@ class LinuxSteamCMDSubprocess(PSubprocessProtocol):
         if output:
             self.logger.debug(output)
         return output
+
+    def __del__(self) -> None:
+        if self._process is not None:
+            self._process.kill()
