@@ -4,8 +4,8 @@ from subprocess import Popen
 
 import pytest
 
-from interactive_steamcmd_wrapper import LinuxSteamCMDSubprocess
-from interactive_steamcmd_wrapper.tests.uts.steamcmd_subprocess.echo import (
+from steamcmd_wrapper import LinuxSteamCMDSubprocess
+from steamcmd_wrapper.tests.uts.steamcmd_subprocess.echo import (
     STEAMCMD_SUBPROCESS_MOCK_EXECUTABLE,
 )
 

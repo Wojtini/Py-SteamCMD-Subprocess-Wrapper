@@ -1,10 +1,10 @@
 import logging
 from pathlib import Path
 
-from interactive_steamcmd_wrapper.config import package_links
-from interactive_steamcmd_wrapper.steam_downloader.downloader_requests import PDownloadRequests
-from interactive_steamcmd_wrapper.steam_downloader.file_system import PFileSystem
-from interactive_steamcmd_wrapper.steam_downloader.protocol_steamcmd_downloader import (
+from steamcmd_wrapper.config import package_links
+from steamcmd_wrapper.steam_downloader.downloader_requests import PDownloadRequests
+from steamcmd_wrapper.steam_downloader.file_system import PFileSystem
+from steamcmd_wrapper.steam_downloader.protocol_steamcmd_downloader import (
     DirectoryNotEmptyError,
     PathIsNotADirectoryError,
     PSteamCMDDownloader,

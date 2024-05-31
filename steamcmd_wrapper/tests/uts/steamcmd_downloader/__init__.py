@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from interactive_steamcmd_wrapper.steam_downloader.downloader_requests import PDownloadRequests
-from interactive_steamcmd_wrapper.steam_downloader.file_system import PFileSystem
+from steamcmd_wrapper.steam_downloader.downloader_requests import PDownloadRequests
+from steamcmd_wrapper.steam_downloader.file_system import PFileSystem
 
 
 class DownloadRequestsMock(PDownloadRequests):

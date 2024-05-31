@@ -1,13 +1,13 @@
 import pytest
 
-from interactive_steamcmd_wrapper.steam_downloader.linux_steamcmd_downloader import (
+from steamcmd_wrapper.steam_downloader.linux_steamcmd_downloader import (
     LinuxSteamCMDDownloader,
 )
-from interactive_steamcmd_wrapper.steam_downloader.protocol_steamcmd_downloader import (
+from steamcmd_wrapper.steam_downloader.protocol_steamcmd_downloader import (
     DirectoryNotEmptyError,
     PathIsNotADirectoryError,
 )
-from interactive_steamcmd_wrapper.tests.uts.steamcmd_downloader import (
+from steamcmd_wrapper.tests.uts.steamcmd_downloader import (
     DownloadRequestsMock,
     FileSystemMock,
 )

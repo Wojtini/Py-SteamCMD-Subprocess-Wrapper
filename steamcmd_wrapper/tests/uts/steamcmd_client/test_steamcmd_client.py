@@ -1,7 +1,7 @@
 import pytest
 
-from interactive_steamcmd_wrapper import SteamCMDClient
-from interactive_steamcmd_wrapper.config import (
+from steamcmd_wrapper import SteamCMDClient
+from steamcmd_wrapper.config import (
     IGNORED_ERRORS,
     ON_APP_UPDATE_SUCCESS_MSG,
     ON_LOGIN_MSG,
@@ -10,8 +10,8 @@ from interactive_steamcmd_wrapper.config import (
     TIMEOUT_ERROR_MSG,
     SteamCMDProcessError,
 )
-from interactive_steamcmd_wrapper.steam_client.steamcmd_client import SteamCMDClientInstallDirError
-from interactive_steamcmd_wrapper.tests.uts.steamcmd_client import FileSystemMock, SubprocessMock
+from steamcmd_wrapper.steam_client.steamcmd_client import SteamCMDClientInstallDirError
+from steamcmd_wrapper.tests.uts.steamcmd_client import FileSystemMock, SubprocessMock
 
 
 class TestSteamCMDClient:

@@ -1,7 +1,7 @@
 import logging
 from pathlib import Path
 
-from interactive_steamcmd_wrapper.config import (
+from steamcmd_wrapper.config import (
     GENERIC_ERRORS,
     IGNORED_ERRORS,
     ON_APP_UPDATE_SUCCESS_MSG,
@@ -10,9 +10,9 @@ from interactive_steamcmd_wrapper.config import (
     ON_READY_MSG,
     SteamCMDDownloadTimeoutError,
 )
-from interactive_steamcmd_wrapper.steam_client.protocol_steamcmd_client import PSteamCMDClient
-from interactive_steamcmd_wrapper.steam_downloader.file_system import PFileSystem
-from interactive_steamcmd_wrapper.steam_subprocess.protocol_subprocess import PSubprocessProtocol
+from steamcmd_wrapper.steam_client.protocol_steamcmd_client import PSteamCMDClient
+from steamcmd_wrapper.steam_downloader.file_system import PFileSystem
+from steamcmd_wrapper.steam_subprocess.protocol_subprocess import PSubprocessProtocol
 
 
 class SteamCMDClientInstallDirError(Exception):

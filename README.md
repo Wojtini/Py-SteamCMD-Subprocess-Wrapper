@@ -1,4 +1,4 @@
-## Simple Interactive SteamCMD Wrapper for Python
+## Py-SteamCMD-Subprocess-Wrapper
 
 ### Purpose
 Simple wrapper to make it easier to use SteamCMD with python.
@@ -36,11 +36,12 @@ for details visit official docs:
 
 
 ### Usage example
+
 ```python
-from interactive_steamcmd_wrapper import get_steamcmd_client
-    
-client = get_steamcmd_client("/home/wojtini/Projects/Interactive-SteamCMD-Wrapper/Steam")
-        
+from steamcmd_wrapper import get_steamcmd_client
+
+client = get_steamcmd_client("//Steam")
+
 client.set_install_dir("/steamcmd")  # SteamCMD official docs recommend setting dir before login 
 client.login_as_anonymous()  # or client.login(user, password) if you need to own the game
 

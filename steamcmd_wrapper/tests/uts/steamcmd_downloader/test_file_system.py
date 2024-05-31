@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from pyfakefs.fake_filesystem import FakeFilesystem
 
-from interactive_steamcmd_wrapper.steam_downloader.file_system import FileSystem
+from steamcmd_wrapper.steam_downloader.file_system import FileSystem
 
 
 class TestFileSystem:

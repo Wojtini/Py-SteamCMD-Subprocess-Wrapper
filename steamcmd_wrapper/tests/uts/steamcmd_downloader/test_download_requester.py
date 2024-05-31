@@ -1,6 +1,6 @@
 import requests_mock
 
-from interactive_steamcmd_wrapper.steam_downloader.downloader_requests import DownloadRequests
+from steamcmd_wrapper.steam_downloader.downloader_requests import DownloadRequests
 
 
 class TestDownloadRequester:

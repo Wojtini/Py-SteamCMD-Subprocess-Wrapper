@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 from subprocess import PIPE, Popen
 
-from interactive_steamcmd_wrapper.steam_subprocess.protocol_subprocess import (
+from steamcmd_wrapper.steam_subprocess.protocol_subprocess import (
     PSubprocessProtocol,
     SteamCMDSubprocessError,
 )

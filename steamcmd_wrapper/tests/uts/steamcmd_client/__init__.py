@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from interactive_steamcmd_wrapper.steam_downloader.file_system import PFileSystem
-from interactive_steamcmd_wrapper.steam_subprocess.protocol_subprocess import PSubprocessProtocol
+from steamcmd_wrapper.steam_downloader.file_system import PFileSystem
+from steamcmd_wrapper.steam_subprocess.protocol_subprocess import PSubprocessProtocol
 
 
 class FileSystemMock(PFileSystem):
