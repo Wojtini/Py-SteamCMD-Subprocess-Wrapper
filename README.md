@@ -8,7 +8,7 @@
 
 ### Install:
 ```shell
-pip install Py-SteamCMD-Subprocess-Wrapper
+pip install py-steamcmd-subprocess-wrapper
 ```
 Visit at https://pypi.org/project/Py-SteamCMD-Subprocess-Wrapper/
 
