@@ -1,6 +1,6 @@
 [project]
 name = "Py-SteamCMD-Subprocess-Wrapper"
-dynamic = ["version"]
+version = "0.1.0"
 authors = [
   {name = "Wojciech Maziarz", email = "wmaziarzw@gmail.com"},
 ]
@@ -8,7 +8,7 @@ description = "SteamCMD Python wrapper to persist steam's login sessions"
 readme = "README.md"
 keywords = ["Steam", "Steam Server", "SteamCMD", "Linux"]
 classifiers = [
-  "Development Status :: 3 - Beta",
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
 
   "Programming Language :: Python :: 3.12",
