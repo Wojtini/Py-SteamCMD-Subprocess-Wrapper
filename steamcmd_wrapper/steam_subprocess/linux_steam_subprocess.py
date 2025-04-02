@@ -1,6 +1,7 @@
 import logging
 from pathlib import Path
 from subprocess import PIPE, Popen
+import re
 
 from steamcmd_wrapper.steam_subprocess.protocol_subprocess import (
     PSubprocessProtocol,
@@ -48,7 +49,7 @@ class LinuxSteamCMDSubprocess(PSubprocessProtocol):
             raise SteamCMDSubprocessError("SteamCMD subprocess has not been started yet")
         if not self._process.stdout:
             raise SteamCMDSubprocessError("No stdout")
-        output = str(self._process.stdout.readline().strip().decode("UTF-8"))
+        output = re.sub(r'\x1B\[[0-?]*[ -/]*[@-~]', '', str(self._process.stdout.readline().strip().decode("UTF-8")))
         if output:
             self.logger.debug(output)
         return output
