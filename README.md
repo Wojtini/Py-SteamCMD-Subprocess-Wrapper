@@ -1,4 +1,40 @@
-## Py-SteamCMD-Subprocess-Wrapper
+<h1 align="center">
+  <strong>Py-SteamCMD-Subprocess-Wrapper</strong>
+</h1>
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Python->=3.8-green" alt="Python Badge">
+</div>
+
+### Install:
+```shell
+pip install py-steamcmd-subprocess-wrapper
+```
+Visit at https://pypi.org/project/Py-SteamCMD-Subprocess-Wrapper/
+
+### Usage example
+
+```python
+from steamcmd_wrapper import get_steamcmd_client
+
+client = get_steamcmd_client("//Steam")
+
+client.set_install_dir("/steamcmd")  # SteamCMD official docs recommend setting dir before login 
+client.login_as_anonymous()  # or client.login(user, password) if you need to own the game
+
+client.update_app("app_id")
+client.update_workshop_mod("app_id", "mod_id")
+```
+
+### Dependencies
+You need to be able to manually run SteamCMD on your OS.
+
+For Debian-Based Distributions (Ubuntu, Mint, etc.) this should be enough:
+```shell
+apt-get install lib32gcc1  # Debian
+```
+for details visit official docs:
+[SteamCMD docs Known Issues](https://developer.valvesoftware.com/wiki/SteamCMD#ERROR.21_Failed_to_install_app_.22xxxxxx.22_.28No_subscription.29)
 
 ### Purpose
 Simple wrapper to make it easier to use SteamCMD with python.
@@ -22,29 +58,3 @@ while downloading mods (especially if they are big in size). If SteamCMD fails i
 need to manually amend the script or risk running it again unchanged, which would validate all apps/mods again risking 
 yet another timeout.
 - Originally I used it to run it on Jenkins Pipeline to keep mods updates on my machine.
-
-
-### Dependencies
-You need to be able to manually run SteamCMD on your OS.
-
-For Debian-Based Distributions (Ubuntu, Mint, etc.) this should be enough:
-```shell
-apt-get install lib32gcc1  # Debian
-```
-for details visit official docs:
-[SteamCMD docs Known Issues](https://developer.valvesoftware.com/wiki/SteamCMD#ERROR.21_Failed_to_install_app_.22xxxxxx.22_.28No_subscription.29)
-
-
-### Usage example
-
-```python
-from steamcmd_wrapper import get_steamcmd_client
-
-client = get_steamcmd_client("//Steam")
-
-client.set_install_dir("/steamcmd")  # SteamCMD official docs recommend setting dir before login 
-client.login_as_anonymous()  # or client.login(user, password) if you need to own the game
-
-client.update_app("app_id")
-client.update_workshop_mod("app_id", "mod_id")
-```
